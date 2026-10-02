@@ -14,7 +14,7 @@ def input_students(app):
         dob = input("  Date of birth (DoB): ")
         app.add_student(Student(s_id, name, dob))
 
-    print(" Students added successfully!")
+    print(" Students added successfully")
 
 
 def input_courses(app):
@@ -28,20 +28,20 @@ def input_courses(app):
         credits = int(input("  Credits: "))
         app.add_course(Course(c_id, name, credits))
 
-    print(" Courses added successfully!")
+    print(" Courses added successfully")
 
 
 def input_marks(app):
     print("\n INPUT MARKS ")
     if not app.get_courses() or not app.get_students():
-        print("Please input students and courses first!")
+        print("Please input students and courses first")
         return
 
     c_id = input("Enter the course ID to input marks: ")
     course = app.find_course(c_id)
 
     if course is None:
-        print("Course ID not found!")
+        print("Course ID not found")
         return
 
     app.reset_marks(c_id)
@@ -52,7 +52,7 @@ def input_marks(app):
         # Use math.floor() to round down to 1 decimal place
         app.set_mark(c_id, s.get_id(), math.floor(raw_score * 10) / 10)
 
-    print(" Marks input completed!")
+    print(" Marks input completed")
 
 
 def input_course_id():
