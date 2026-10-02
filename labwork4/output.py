@@ -1,5 +1,5 @@
 def show_menu():
-    print("  HE THONG QUAN LY DIEM SINH VIEN (PW4)")
+    print("  HE THONG QUAN LY DIEM SINH VIEN")
     print("1. Nhap thong tin sinh vien")
     print("2. Nhap thong tin mon hoc")
     print("3. Nhap diem cho mon hoc")

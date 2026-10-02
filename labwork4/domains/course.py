@@ -1,5 +1,4 @@
 class Course:
-    """Lop dai dien cho Mon hoc"""
     def __init__(self, course_id="", name="", credits=0):
         self.__id = course_id
         self.__name = name

@@ -36,7 +36,6 @@ class Student:
 
 
 class Course:
-    """Lop dai dien cho Mon hoc"""
     def __init__(self, course_id="", name="", credits=0):
         self.__id = course_id
         self.__name = name
@@ -54,21 +53,21 @@ class Course:
     def input_info(self, stdscr):
         self.__id = get_input(stdscr, "  ID Mon hoc: ")
         self.__name = get_input(stdscr, "  Ten Mon hoc: ")
-        self.__credits = int(get_input(stdscr, "  So tin chi (credits): "))
+        self.__credits = int(get_input(stdscr, "  So tin chi: "))
 
     def __str__(self):
         return f"ID Mon: {self.__id:<8} | Ten Mon: {self.__name:<20} | Tin chi: {self.__credits}"
 
 
 class StudentMarkManagement:
-    """Lop Quan ly He thong bang Curses"""
+  
     def __init__(self):
         self.__students = []
         self.__courses = []
-        self.__marks = {}  # Cau truc: {course_id: {student_id: score}}
+        self.__marks = {}  # curses
 
     def input_students(self, stdscr):
-        stdscr.addstr("\n=== NHAP THONG TIN SINH VIEN ===\n\n")
+        stdscr.addstr("\nNHAP THONG TIN SINH VIEN\n\n")
         count = int(get_input(stdscr, "Nhap so luong sinh vien: "))
 
         for i in range(count):
@@ -77,10 +76,10 @@ class StudentMarkManagement:
             s.input_info(stdscr)
             self.__students.append(s)
 
-        stdscr.addstr("\n-> Da them sinh vien thanh cong!\n")
+        stdscr.addstr("\n-> Da them sinh vien thanh cong\n")
 
     def input_courses(self, stdscr):
-        stdscr.addstr("\n=== NHAP THONG TIN MON HOC ===\n\n")
+        stdscr.addstr("\nNHAP THONG TIN MON HOC\n\n")
         count = int(get_input(stdscr, "Nhap so luong mon hoc: "))
 
         for i in range(count):
@@ -92,9 +91,9 @@ class StudentMarkManagement:
         stdscr.addstr("\n-> Da them mon hoc thanh cong!\n")
 
     def input_marks(self, stdscr):
-        stdscr.addstr("\n=== NHAP DIEM MON HOC ===\n\n")
+        stdscr.addstr("\nNHAP DIEM MON HOC\n\n")
         if not self.__courses or not self.__students:
-            stdscr.addstr("Can phai nhap danh sach Mon hoc va Sinh vien truoc!\n")
+            stdscr.addstr("Can phai nhap danh sach Mon hoc va Sinh vien truoc\n")
             return
 
         c_id = get_input(stdscr, "Nhap ID mon hoc de nhap diem: ")
@@ -115,10 +114,9 @@ class StudentMarkManagement:
             # Dung math.floor() lam tron xuong 1 chu so thap phan
             self.__marks[c_id][s.get_id()] = math.floor(raw_score * 10) / 10.0
 
-        stdscr.addstr("\n-> Nhap diem hoan tat!\n")
+        stdscr.addstr("\n-> Nhap diem hoan tat\n")
 
     def calculate_gpas(self):
-        """Tinh diem GPA trung binh co trong so bang mang NumPy"""
         for s in self.__students:
             s_id = s.get_id()
             scores_list = []
@@ -141,12 +139,12 @@ class StudentMarkManagement:
                 s.set_gpa(0.0)
 
     def sort_students_by_gpa(self):
-        """Sap xep sinh vien theo GPA giam dan"""
+
         self.calculate_gpas()
         self.__students.sort(key=lambda s: s.get_gpa(), reverse=True)
 
     def list_students(self, stdscr):
-        stdscr.addstr("\n=== DANH SACH SINH VIEN (SAP XEP THEO GPA GIAM DAN) ===\n\n")
+        stdscr.addstr("\nDANH SACH SINH VIEN\n\n")
         if not self.__students:
             stdscr.addstr("Chua co sinh vien nao.\n")
         else:
@@ -155,7 +153,7 @@ class StudentMarkManagement:
                 stdscr.addstr(f"{s}\n")
 
     def list_courses(self, stdscr):
-        stdscr.addstr("\n=== DANH SACH MON HOC ===\n\n")
+        stdscr.addstr("\nDANH SACH MON HOC\n\n")
         if not self.__courses:
             stdscr.addstr("Chua co mon hoc nao.\n")
         else:
@@ -163,7 +161,7 @@ class StudentMarkManagement:
                 stdscr.addstr(f"{c}\n")
 
     def show_marks(self, stdscr):
-        stdscr.addstr("\n=== BANG DIEM MON HOC ===\n\n")
+        stdscr.addstr("\n BANG DIEM MON HOC\n\n")
         c_id = get_input(stdscr, "Nhap ID mon hoc de xem diem: ")
 
         if c_id not in self.__marks:
@@ -177,7 +175,6 @@ class StudentMarkManagement:
 
 
 def get_input(stdscr, prompt):
-    """Ham ho tro nhap van ban voi Curses"""
     stdscr.addstr(prompt)
     stdscr.refresh()
     curses.echo()
@@ -192,17 +189,15 @@ def main(stdscr):
     app = StudentMarkManagement()
 
     while True:
-        stdscr.addstr("\n===============================================\n")
-        stdscr.addstr("  HE THONG QUAN LY DIEM SINH VIEN (PW3 - CURSES)\n")
-        stdscr.addstr("===============================================\n")
+        stdscr.addstr("  HE THONG QUAN LY DIEM SINH VIEN)\n")
         stdscr.addstr("1. Nhap thong tin sinh vien\n")
         stdscr.addstr("2. Nhap thong tin mon hoc\n")
         stdscr.addstr("3. Nhap diem cho mon hoc\n")
         stdscr.addstr("4. Hien thi danh sach mon hoc\n")
-        stdscr.addstr("5. Hien thi danh sach sinh vien & GPA (Giam dan)\n")
+        stdscr.addstr("5. Hien thi danh sach sinh vien & GPA\n")
         stdscr.addstr("6. Hien thi bang diem mon hoc\n")
         stdscr.addstr("7. Thoat\n")
-        stdscr.addstr("-----------------------------------------------\n")
+
 
         choice = get_input(stdscr, "Chon chuc nang (1-7): ")
 

@@ -1,12 +1,10 @@
 import numpy as np
 
-
 class StudentMarkManagement:
-    """Lop quan ly du lieu va tinh toan (khong nhap/xuat)"""
     def __init__(self):
         self.__students = []
         self.__courses = []
-        self.__marks = {}  # Cau truc: {course_id: {student_id: score}}
+        self.__marks = {}  
 
     # ---------- Them du lieu ----------
     def add_student(self, student):
@@ -23,7 +21,7 @@ class StudentMarkManagement:
     def reset_marks(self, course_id):
         self.__marks[course_id] = {}
 
-    # ---------- Lay du lieu ----------
+    #  Lay du lieu 
     def get_students(self):
         return self.__students
 
@@ -42,9 +40,8 @@ class StudentMarkManagement:
     def get_mark(self, course_id, student_id, default="N/A"):
         return self.__marks[course_id].get(student_id, default)
 
-    # ---------- Tinh toan ----------
+    # Tinh toan 
     def calculate_gpas(self):
-        """Tinh diem GPA trung binh co trong so bang mang NumPy"""
         for s in self.__students:
             s_id = s.get_id()
             scores_list = []

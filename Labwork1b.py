@@ -1,5 +1,4 @@
 class Student:
-    """Lop dai dien cho Sinh vien"""
     def __init__(self, student_id="", name="", dob=""):
         self.__id = student_id
         self.__name = name
@@ -24,7 +23,6 @@ class Student:
 
 
 class Course:
-    """Lop dai dien cho Mon hoc"""
     def __init__(self, course_id="", name=""):
         self.__id = course_id
         self.__name = name
@@ -44,11 +42,10 @@ class Course:
 
 
 class StudentMarkManagement:
-    """Lop quan ly he thong"""
     def __init__(self):
         self.__students = []
         self.__courses = []
-        self.__marks = {}  # {course_id: {student_id: mark}}
+        self.__marks = {}  
 
     def input_students(self):
         count = int(input("number of students: "))

@@ -11,10 +11,10 @@ class Student:
     def get_dob(self):
         return self.__dob
 
-        def input_info(self):
-                self.__id = input("id: ")
-                self.__name = input("name: ")
-                self.__dob = input("dob: ")
+    def input_info(self):
+            self.__id = input("id: ")
+            self.__name = input("name: ")
+            self.__dob = input("dob: ")
 
 
     def display(self):
@@ -35,7 +35,7 @@ class Course:
     def get_name(self):
         return self.__name
 
-    # Phương thức nhập thông tin môn học
+    
     def input_info(self):
         self.__id = input("  ID courses: ")
         self.__name = input("  Name courses: ")
@@ -48,7 +48,6 @@ class Course:
 
 
 class StudentMarkManagement:
-    """Lớp quản lý danh sách sinh viên, môn học và bảng điểm"""
     def __init__(self):
         self.__students = []  # Chứa danh sách các đối tượng Student
         self.__courses = []   # Chứa danh sách các đối tượng Course
@@ -129,7 +128,7 @@ class StudentMarkManagement:
 
     def main_menu(self):
         while True:
-            print("\n=== MENU QUAN LY (OOP) ===")
+            print("\nMENU QUAN LY")
             print("1. Nhap thong tin sinh vien")
             print("2. Nhap thong tin mon hoc")
             print("3. Nhap diem cho mon hoc")
