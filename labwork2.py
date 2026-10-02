@@ -48,11 +48,11 @@ class Course:
 
 
 class StudentMarkManagement:
-    """Lớp quản lý danh sách Sinh viên, Môn học và Bảng điểm"""
+    """Lớp quản lý danh sách sinh viên, môn học và bảng điểm"""
     def __init__(self):
         self.__students = []  # Chứa danh sách các đối tượng Student
         self.__courses = []   # Chứa danh sách các đối tượng Course
-        self.__marks = {}     # Cấu trúc: {course_id: {student_id: score}}
+        self.__marks = {}     
 
     def input_students(self):
         count = int(input("Number of students: "))
