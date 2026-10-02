@@ -1,5 +1,4 @@
 class Student:
-    """Lop dai dien cho Sinh vien"""
     def __init__(self, student_id="", name="", dob=""):
         self.__id = student_id
         self.__name = name

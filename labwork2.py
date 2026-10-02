@@ -12,7 +12,7 @@ class Student:
         return self.__dob
 
     def input_info(self):
-            self.__id = input("id: ")
+            self.__id = input("id: ") #private
             self.__name = input("name: ")
             self.__dob = input("dob: ")
 
@@ -41,10 +41,10 @@ class Course:
         self.__name = input("  Name courses: ")
 
     def display(self):
-        print(f"ID Mon: {self.__id} | Ten Mon: {self.__name}")
+        print(f"ID Courses: {self.__id} | Ten Mon: {self.__name}")
 
     def __str__(self):
-        return f"ID Mon: {self.__id} | Ten Mon: {self.__name}"
+        return f"ID Courses: {self.__id} | Ten Mon: {self.__name}"
 
 
 class StudentMarkManagement:
@@ -94,12 +94,12 @@ class StudentMarkManagement:
             return
 
         self.list_courses()
-        c_id = input("\nNhap ID mon hoc de nhap diem: ")
+        c_id = input("\nNhap ID Courses hoc de nhap diem: ")
 
         # Kiểm tra môn học có tồn tại hay không
         course_exists = any(c.get_id() == c_id for c in self.__courses)
         if not course_exists:
-            print("ID mon hoc khong hop le!")
+            print("ID Courses hoc khong hop le!")
             return
 
         if c_id not in self.__marks:
@@ -115,7 +115,7 @@ class StudentMarkManagement:
             print("Chua co bang diem nao duoc nhap.")
             return
 
-        c_id = input("Nhap ID mon hoc de xem diem: ")
+        c_id = input("Nhap ID Courses hoc de xem diem: ")
         if c_id not in self.__marks:
             print(f"Chua co diem cho mon hoc ID: {c_id}")
             return

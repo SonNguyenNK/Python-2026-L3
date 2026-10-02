@@ -1,83 +1,164 @@
+class Student:
+    def __init__(self, student_id="", name="", dob=""):
+        self.__id = student_id
+        self.__name = name
+        self.__dob = dob
 
-students = []  
-courses = []   
-marks = {}    
+    def get_id(self):
+        return self.__id
 
+    def get_name(self):
+        return self.__name
 
+    def get_dob(self):
+        return self.__dob
 
-def input_students():
-    count = int(input("number of students: "))
-    for _ in range(count):
-        s_id = input("  ID: ")
-        name = input("  Ten: ")
-        dob = input(" (DoB): ")
-        students.append((s_id, name, dob))
+    def input_info(self):
+        self.__id = input("  Student ID: ")  # private attribute
+        self.__name = input("  Student name: ")
+        self.__dob = input("  Student DoB: ")
 
-def input_courses():
-    count = int(input("Number of courses: "))
-    for _ in range(count):
-        c_id = input("  ID courses: ")
-        name = input("  Name courses: ")
-        courses.append((c_id, name))
+    def display(self):
+        print(f"ID: {self.__id} | Name: {self.__name} | DoB: {self.__dob}")
 
-def input_marks():
-    list_courses()
-    c_id = input("\nNhap ID mon hoc de nhap diem: ")
-    marks[c_id] = {}
-    print(f"\nNhap diem cho mon ID: {c_id} ")
-    for s_id, name, _ in students:
-        score = float(input(f"Diem cho sinh vien '{name}' (ID: {s_id}): "))
-        marks[c_id][s_id] = score
+    def __str__(self):
+        return f"ID: {self.__id} | Name: {self.__name} | DoB: {self.__dob}"
 
 
+class Course:
+    def __init__(self, course_id="", name=""):
+        self.__id = course_id
+        self.__name = name
 
-def list_courses():
-    print("\nDANH SACH MON HOC ")
-    for c_id, name in courses:
-        print(f"ID Mon: {c_id} | Ten Mon: {name}")
+    # Getter methods
+    def get_id(self):
+        return self.__id
 
-def list_students():
-    print("\n DANH SACH SINH VIEN ")
-    for s_id, name, dob in students:
-        print(f"ID: {s_id} | Ten: {name} | Ngay sinh: {dob}")
+    def get_name(self):
+        return self.__name
 
-def show_marks():
-    c_id = input("Nhap ID mon hoc de xem diem: ")
-    print(f"\nBANG DIEM MON: {c_id}")
-    for s_id, name, _ in students:
-        score = marks[c_id].get(s_id, "N/A")
-        print(f"ID: {s_id} | Ten: {name} | Diem: {score}")
+    def input_info(self):
+        self.__id = input("  Course ID: ")
+        self.__name = input("  Course name: ")
+
+    def display(self):
+        print(f"Course ID: {self.__id} | Course name: {self.__name}")
+
+    def __str__(self):
+        return f"Course ID: {self.__id} | Course name: {self.__name}"
 
 
+class StudentMarkManagement:
+    def __init__(self):
+        self.__students = []  # List of Student objects
+        self.__courses = []   # List of Course objects
+        self.__marks = {}     
 
-def main():
-    while True:
-        print("\nMENU QUAN LY ")
-        print("1. Nhap thong tin sinh vien")
-        print("2. Nhap thong tin mon hoc")
-        print("3. Nhap diem cho mon hoc")
-        print("4. Hien thi danh sach mon hoc")
-        print("5. Hien thi danh sach sinh vien")
-        print("6. Hien thi bang diem mon hoc")
-        print("7. Thoat")
-        
-        choice = input("Chon chuc nang (1-7): ")
+    def input_students(self):
+        count = int(input("Number of students: "))
+        for _ in range(count):
+            print(f"\nEnter student {len(self.__students) + 1}:")
+            s = Student()
+            s.input_info()
+            self.__students.append(s)
 
-        if choice == '1':
-            input_students()
-        elif choice == '2':
-            input_courses()
-        elif choice == '3':
-            input_marks()
-        elif choice == '4':
-            list_courses()
-        elif choice == '5':
-            list_students()
-        elif choice == '6':
-            show_marks()
-        elif choice == '7':
-            print("Da thoat chuong trinh.")
-            break
+    def input_courses(self):
+        count = int(input("Number of courses: "))
+        for _ in range(count):
+            print(f"\nEnter course {len(self.__courses) + 1}:")
+            c = Course()
+            c.input_info()
+            self.__courses.append(c)
+
+    def list_courses(self):
+        print("\nCOURSE LIST")
+        if not self.__courses:
+            print("No courses yet.")
+            return
+        for c in self.__courses:
+            c.display()
+
+    def list_students(self):
+        print("\nSTUDENT LIST")
+        if not self.__students:
+            print("No students yet.")
+            return
+        for s in self.__students:
+            s.display()
+
+    def input_marks(self):
+        if not self.__courses:
+            print("No courses yet! Please input courses first.")
+            return
+        if not self.__students:
+            print("No students yet! Please input students first.")
+            return
+
+        self.list_courses()
+        c_id = input("\nEnter the course ID to input marks: ")
+
+        # Check that the course exists
+        course_exists = any(c.get_id() == c_id for c in self.__courses)
+        if not course_exists:
+            print("Invalid course ID!")
+            return
+
+        if c_id not in self.__marks:
+            self.__marks[c_id] = {}
+
+        print(f"\nInput marks for course ID: {c_id}")
+        for s in self.__students:
+            score = float(input(f"Mark for student '{s.get_name()}' (ID: {s.get_id()}): "))
+            self.__marks[c_id][s.get_id()] = score
+
+    def show_marks(self):
+        if not self.__marks:
+            print("No marks have been entered yet.")
+            return
+
+        c_id = input("Enter the course ID to show marks: ")
+        if c_id not in self.__marks:
+            print(f"No marks for course ID: {c_id}")
+            return
+
+        print(f"\n--- MARKS OF COURSE: {c_id} ---")
+        for s in self.__students:
+            s_id = s.get_id()
+            score = self.__marks[c_id].get(s_id, "N/A")
+            print(f"ID: {s_id} | Name: {s.get_name()} | Mark: {score}")
+
+    def main_menu(self):
+        while True:
+            print("\nMANAGEMENT MENU")
+            print("1. Input students")
+            print("2. Input courses")
+            print("3. Input marks for a course")
+            print("4. List courses")
+            print("5. List students")
+            print("6. Show marks of a course")
+            print("7. Exit")
+
+            choice = input("Your choice (1-7): ")
+
+            if choice == '1':
+                self.input_students()
+            elif choice == '2':
+                self.input_courses()
+            elif choice == '3':
+                self.input_marks()
+            elif choice == '4':
+                self.list_courses()
+            elif choice == '5':
+                self.list_students()
+            elif choice == '6':
+                self.show_marks()
+            elif choice == '7':
+                print("Program closed.")
+                break
+            else:
+                print("Invalid choice. Please try again!")
+
 
 if __name__ == "__main__":
-    main()
+    app = StudentMarkManagement()
+    app.main_menu()

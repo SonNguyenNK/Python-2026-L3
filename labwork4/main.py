@@ -9,7 +9,7 @@ def main():
 
     while True:
         output.show_menu()
-        choice = input("Chon chuc nang (1-7): ")
+        choice = input("Your choice (1-7): ")
 
         if choice == '1':
             input_students(app)
@@ -25,7 +25,7 @@ def main():
             c_id = input_course_id()
             output.show_marks(app, c_id)
         elif choice == '7':
-            print("Da thoat chuong trinh.")
+            print("Program closed.")
             break
 
 

@@ -4,57 +4,57 @@ from domains import Student, Course
 
 
 def input_students(app):
-    print("\nNHAP THONG TIN SINH VIEN")
-    count = int(input("Nhap so luong sinh vien: "))
+    print("\nINPUT STUDENTS")
+    count = int(input("Number of students: "))
 
     for i in range(count):
-        print(f"\nSinh vien thu {len(app.get_students()) + 1}:")
-        s_id = input("ID Sinh vien: ")
-        name = input("Ten Sinh vien: ")
-        dob = input("DoB: ")
+        print(f"\nStudent {len(app.get_students()) + 1}:")
+        s_id = input("  Student ID: ")
+        name = input("  Student name: ")
+        dob = input("  Date of birth (DoB): ")
         app.add_student(Student(s_id, name, dob))
 
-    print("-> Da them sinh vien thanh cong!")
+    print(" Students added successfully!")
 
 
 def input_courses(app):
-    print("\nNHAP THONG TIN MON HOC")
-    count = int(input("Nhap so luong mon hoc: "))
+    print("\n INPUT COURSES ")
+    count = int(input("Number of courses: "))
 
     for i in range(count):
-        print(f"\nMon hoc thu {len(app.get_courses()) + 1}:")
-        c_id = input("ID Mon hoc: ")
-        name = input("Ten Mon hoc: ")
-        credits = int(input("So tin chi: "))
+        print(f"\nCourse {len(app.get_courses()) + 1}:")
+        c_id = input("  Course ID: ")
+        name = input("  Course name: ")
+        credits = int(input("  Credits: "))
         app.add_course(Course(c_id, name, credits))
 
-    print("Da them")
+    print(" Courses added successfully!")
 
 
 def input_marks(app):
-    print("\nNHAP DIEM MON HOC")
+    print("\n INPUT MARKS ")
     if not app.get_courses() or not app.get_students():
-        print("Can phai nhap danh sach mon hoc va sinh vien truoc")
+        print("Please input students and courses first!")
         return
 
-    c_id = input("Nhap ID mon hoc de nhap diem: ")
+    c_id = input("Enter the course ID to input marks: ")
     course = app.find_course(c_id)
 
     if course is None:
-        print("Khong tim thay ID mon hoc nay")
+        print("Course ID not found!")
         return
 
     app.reset_marks(c_id)
 
-    print(f"\nNhap diem cho mon: {course.get_name()}")
+    print(f"\nInput marks for: {course.get_name()} (marks are rounded down to 1 decimal place)")
     for s in app.get_students():
-        raw_score = float(input(f"  Diem cho {s.get_name()} (ID: {s.get_id()}): "))
-        # Dung math.floor() lam tron xuong 1 chu so thap phan
+        raw_score = float(input(f"  Mark for {s.get_name()} (ID: {s.get_id()}): "))
+        # Use math.floor() to round down to 1 decimal place
         app.set_mark(c_id, s.get_id(), math.floor(raw_score * 10) / 10)
 
-    print("-> Nhap diem xong")
+    print(" Marks input completed!")
 
 
 def input_course_id():
-    print("\nBANG DIEM MON HOC ")
-    return input("Nhap ID mon hoc de xem diem: ")
+    print("\n COURSE MARKS ")
+    return input("Enter the course ID to show marks: ")

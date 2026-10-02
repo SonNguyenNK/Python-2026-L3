@@ -64,6 +64,5 @@ class StudentMarkManagement:
                 s.set_gpa(0.0)
 
     def sort_students_by_gpa(self):
-        """Sap xep sinh vien theo GPA giam dan"""
         self.calculate_gpas()
         self.__students.sort(key=lambda s: s.get_gpa(), reverse=True)
