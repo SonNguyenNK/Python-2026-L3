@@ -71,7 +71,7 @@ class StudentMarkManagement:
             self.__courses.append(c)
 
     def list_courses(self):
-        print("\n--- DANH SACH MON HOC ---")
+        print("\nDANH SACH MON HOC")
         if not self.__courses:
             print("Chua co mon hoc nao.")
             return
@@ -79,7 +79,7 @@ class StudentMarkManagement:
             c.display()
 
     def list_students(self):
-        print("\n--- DANH SACH SINH VIEN ---")
+        print("\nDANH SACH SINH VIEN")
         if not self.__students:
             print("Chua co sinh vien nao.")
             return
